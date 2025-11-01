@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>1A2B 遊戲頁</h1>
+
+<form th:action="@{/newGame}" method="GET">
+	<button type="submit">新遊戲</button>
+</form>
+
+<form th:action="@{guess}" method="GET">
+	<input type="hidden" name="gameId" th:value="${gameId}">
+	猜數字：<input type="text" name="guessNum" />
+	<button type="submit">猜答案</button>
+</form>
+
+<ul>
+	<li th:each="history : ${gameHistory}" th:text="|${history.guessNum} ${history.resultDisplay}|">1234 1A2B</li>
+</ul>
+
+<form th:action="@{/logout}" method="POST">
+<button type="submit">登出</button>
+</form>
+</body>
+</html>
