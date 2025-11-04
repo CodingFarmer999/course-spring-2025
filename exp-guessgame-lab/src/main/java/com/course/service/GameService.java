@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.course.entity.GameEntity;
 import com.course.entity.GameHistoryEntity;
+import com.course.entity.UsersEntity;
+import com.course.model.GameUserPrincipal;
 import com.course.model.ResultBean;
 import com.course.repository.GameHistoryRepository;
 import com.course.repository.GameRepository;
@@ -31,10 +32,9 @@ public class GameService {
 	 * @return
 	 */
 	public Long getAnswer() {
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails user = (UserDetails)auth.getPrincipal();
-		System.out.println("USER: " + user.getUsername());
+		GameUserPrincipal userPricipal = getAuthenticatedUser();
+		System.out.println("USER: " + userPricipal.getUsername());
+		UsersEntity usersEntity = userPricipal.getUsersEntity();
 		
 		List<Integer> answerList = new ArrayList<>();
 		
@@ -53,6 +53,7 @@ public class GameService {
 		// 將答案寫入DB
 		GameEntity gameEntity = new GameEntity();
 		gameEntity.setAnswer(answerStr);
+		gameEntity.setUserId(usersEntity.getId());
 		gameEntity = gameRepository.save(gameEntity);
 
 		return gameEntity.getId();
@@ -150,6 +151,11 @@ public class GameService {
 		return result;
 	}
 	
+	/**
+	 * 依照 gameId 取得遊戲歷程，並組成 ResultBean
+	 * @param gameId
+	 * @return
+	 */
 	public List<ResultBean> getHistory(Long gameId) {
 		List<GameHistoryEntity> historyList = gameHistoryRepository.findByGameId(gameId);
 		
@@ -159,5 +165,23 @@ public class GameService {
 			bean.setResultDisplay(history.getGuessResult());
 			return bean;
 		}).collect(Collectors.toList());
+	}
+	
+	
+	/**
+	 * 取得驗證的使用者
+	 * @return
+	 */
+	private GameUserPrincipal getAuthenticatedUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || !authentication.isAuthenticated()) {
+			// 驗證未通過
+			return null;
+		}
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof GameUserPrincipal) {
+			return (GameUserPrincipal)principal;
+		}
+		return null;
 	}
 }

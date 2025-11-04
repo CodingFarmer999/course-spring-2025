@@ -21,8 +21,12 @@
 	<li th:each="history : ${gameHistory}" th:text="|${history.guessNum} ${history.resultDisplay}|">1234 1A2B</li>
 </ul>
 
+<a th:href="@{/info}">測試 @AuthenticationPrincipal</a>
+
+<a th:href="@{/admin/history}">查看遊戲歷程</a>
+
 <form th:action="@{/logout}" method="POST">
-<button type="submit">登出</button>
+	<button type="submit">登出</button>
 </form>
 </body>
 </html>

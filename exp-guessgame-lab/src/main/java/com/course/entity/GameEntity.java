@@ -1,5 +1,6 @@
 package com.course.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,9 @@ public class GameEntity {
 	
 	/** 答案 */
 	private String answer;
+	
+	@Column(name = "user_id")
+	private Long userId;
 
 	public Long getId() {
 		return id;
@@ -33,4 +37,13 @@ public class GameEntity {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
 }
