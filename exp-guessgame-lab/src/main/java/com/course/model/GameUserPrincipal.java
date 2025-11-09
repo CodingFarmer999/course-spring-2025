@@ -40,4 +40,5 @@ public class GameUserPrincipal implements UserDetails {
 	public UsersEntity getUsersEntity() {
 		return this.usersEntity;
 	}
+	
 }

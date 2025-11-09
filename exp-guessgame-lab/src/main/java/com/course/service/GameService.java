@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -183,5 +184,15 @@ public class GameService {
 			return (GameUserPrincipal)principal;
 		}
 		return null;
+	}
+	
+//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public String testPreAuthorize() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		GameUserPrincipal principal = (GameUserPrincipal)auth.getPrincipal();
+		System.out.println(principal.getUsersEntity().getRole());
+		System.out.println("testPreAuthorize");
+		return "test";
 	}
 }

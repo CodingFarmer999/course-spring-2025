@@ -85,4 +85,10 @@ public class GameController {
 		return "game";
 	}
 	
+	@GetMapping("/testPreAuthorize")
+	public String testPreAuthorize() {
+		gameService.testPreAuthorize();
+		return "game";
+	}
+	
 }
