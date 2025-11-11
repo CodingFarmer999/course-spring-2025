@@ -3,21 +3,20 @@ package com.course.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-// @Component(value = "kia") // 調整元件名稱
 @Component
-public class Toyota {
-	
+public class Kia {
+
 	private Engine engine;
 	
-	@Autowired // @Autowired 可省略
-	public Toyota(Engine engine) {
+	@Autowired // 不可省略
+	public void setEngine(Engine engine) {
 		this.engine = engine;
 	}
-
+	
 	public void move() {
 		
 		engine.start();
 		
-		System.out.println("Toyota move!");
+		System.out.println("Kia move!");
 	}
 }
