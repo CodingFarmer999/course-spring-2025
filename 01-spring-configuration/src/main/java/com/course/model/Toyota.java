@@ -1,5 +1,9 @@
 package com.course.model;
 
+import org.springframework.stereotype.Component;
+
+// @Component(value = "kia") // 調整元件名稱
+@Component
 public class Toyota {
 	
 	Engine engine;
