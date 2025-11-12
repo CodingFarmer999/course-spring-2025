@@ -6,6 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.course.config.AnnotationConfig;
 import com.course.model.Benz;
 import com.course.model.Kia;
+import com.course.model.LazyBean;
 import com.course.model.PrototypeBean;
 import com.course.model.SingletonBean;
 import com.course.model.Toyota;
@@ -43,6 +44,10 @@ public class AnnotationConfigMain {
 		
 		PrototypeBean p2 = ctx.getBean(PrototypeBean.class);
 		System.out.println("PrototypeBean-2: " + p2);
+		
+		System.out.println("=====================");
+		
+		LazyBean lazy = ctx.getBean(LazyBean.class);
 	}
 
 }
