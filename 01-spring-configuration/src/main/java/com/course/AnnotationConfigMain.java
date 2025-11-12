@@ -6,6 +6,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.course.config.AnnotationConfig;
 import com.course.model.Benz;
 import com.course.model.Kia;
+import com.course.model.PrototypeBean;
+import com.course.model.SingletonBean;
 import com.course.model.Toyota;
 
 public class AnnotationConfigMain {
@@ -27,6 +29,20 @@ public class AnnotationConfigMain {
 		
 		Benz benz = ctx.getBean(Benz.class);
 		benz.move();
+		
+		System.out.println("=====================");
+		
+		SingletonBean s1 = ctx.getBean(SingletonBean.class);
+		System.out.println("SingletonBean-1: " + s1);
+		
+		SingletonBean s2 = ctx.getBean(SingletonBean.class);
+		System.out.println("SingletonBean-2: " + s2);
+		
+		PrototypeBean p1 = ctx.getBean(PrototypeBean.class);
+		System.out.println("PrototypeBean-1: " + p1);
+		
+		PrototypeBean p2 = ctx.getBean(PrototypeBean.class);
+		System.out.println("PrototypeBean-2: " + p2);
 	}
 
 }
