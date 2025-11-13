@@ -9,6 +9,7 @@ import com.course.model.LazyBean;
 import com.course.model.PrototypeBean;
 import com.course.model.SingletonBean;
 import com.course.model.Toyota;
+import com.course.utils.SpringUtils;
 
 public class AnnotationConfigMain {
 
@@ -48,6 +49,15 @@ public class AnnotationConfigMain {
 			System.out.println("=====================");
 			
 			LazyBean lazy = ctx.getBean(LazyBean.class);
+			
+			
+			System.out.println("=====================");
+			
+			SpringUtils utils = SpringUtils.getInstance();
+			utils.doSomething();
+			
+			SpringUtils utils2 = SpringUtils.getInstance();
+			utils2.doSomething();
 		}
 		
 	}
