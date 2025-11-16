@@ -8,5 +8,13 @@
 </head>
 <body>
 <h1>我是 HOME 頁</h1>
+
+<form action="login" method="POST">
+	帳號：<input type="text" name="username" />
+	<br/>
+	密碼：<input type="text"name="password" />
+	<br/>
+	<button type="submit">送出</button>
+</form>
 </body>
 </html>
