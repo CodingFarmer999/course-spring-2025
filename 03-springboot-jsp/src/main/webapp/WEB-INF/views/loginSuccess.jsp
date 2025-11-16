@@ -8,6 +8,8 @@
 </head>
 <body>
 <h1>${user} 你好! 登入成功</h1>
+<h2>${company}</h2>
+${hobby}
 
 </body>
 </html>
