@@ -2,6 +2,8 @@ package com.course.model;
 
 import java.util.Arrays;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserVo {
 	
     private String nickname;
@@ -9,6 +11,8 @@ public class UserVo {
     private String phone;
     
     private String[] hobby;
+    
+    private MultipartFile photo;
 
 	public String getNickname() {
 		return nickname;
@@ -32,6 +36,14 @@ public class UserVo {
 
 	public void setHobby(String[] hobby) {
 		this.hobby = hobby;
+	}
+
+	public MultipartFile getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
 	}
 
 	@Override
