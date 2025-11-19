@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>註冊成功</h1>
+<a href="/">回首頁
 </body>
 </html>

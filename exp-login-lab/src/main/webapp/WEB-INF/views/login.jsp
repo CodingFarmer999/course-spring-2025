@@ -17,6 +17,6 @@
 	<input type="submit" value="登入" />
 </form>
 
-<a href="register.jsp">註冊</a>
+<a href="/register">註冊</a>
 </body>
 </html>

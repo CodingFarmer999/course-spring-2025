@@ -8,5 +8,7 @@
 </head>
 <body>
 <h1>登入成功</h1>
+
+<a href="/product">商品列表</a>
 </body>
 </html>

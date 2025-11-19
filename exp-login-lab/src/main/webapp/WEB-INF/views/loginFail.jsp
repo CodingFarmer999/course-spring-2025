@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>登入失敗</h1>
+<a href="/">回首頁</a>
 </body>
 </html>
