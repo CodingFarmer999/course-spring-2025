@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.course.model.Cart;
+import com.course.model.Product;
 import com.course.model.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +27,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public class JspController {
 
 	private Logger logger = LoggerFactory.getLogger(JspController.class);
+	
+	@Autowired
+	private Cart cart;
 	
 	@PostMapping("/login")
 	public String loginAction(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
@@ -76,5 +83,19 @@ public class JspController {
 	    }
 		return "loginSuccess";
 		
+	}
+	
+	@GetMapping("/addToCart")
+	public String addToCart(@RequestParam Long productId) {
+		Product product = new Product();
+		product.setProductId(productId);
+		cart.getProducts().add(product);
+		return "loginSuccess";
+	}
+	
+	@GetMapping("/getProducts")
+	public String getCart(Model model) {
+		model.addAttribute("products", cart.getProducts());
+		return "loginSuccess";
 	}
 }
