@@ -16,5 +16,12 @@ ${name} 你好
 	<button type="submit">註冊</button>
 </form>
 
+<form action="/99-classic-springmvc/login">
+	Username: <input name="username" /><br/>
+	Password: <input name="password" /><br/>
+	<button type="submit">登入</button>
+</form>
+
+
 </body>
 </html>
