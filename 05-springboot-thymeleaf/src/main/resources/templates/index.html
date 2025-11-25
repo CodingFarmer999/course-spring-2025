@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 th:text="${title}">我是首頁</h1>
+
+
+<h1 th:utext="${title}">我是首頁</h1>
+
+<form th:action="@{/login}" method="POST">
+    <div>
+        <label for="username">帳號:</label>
+        <input id="username" name="username" type="text" />
+    </div>
+    <div>
+        <label for="password">密碼:</label>
+        <input id="password" name="password" type="password" />
+    </div>
+    <button type="submit">登入</button>
+    <a th:href="@{/register}">註冊</a>
+    <div th:if="${param.error}">
+        登入失敗，請重新輸入
+    </div>
+    <div th:if="${param.logout}">
+        您已成功登出
+    </div>
+</form>
+</body>
+</html>
