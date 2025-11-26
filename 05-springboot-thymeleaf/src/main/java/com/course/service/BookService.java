@@ -1,7 +1,7 @@
 package com.course.service;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,14 @@ import com.course.repository.BookRepository;
 public class BookService {
 
 	@Autowired
+	private BookServiceHelper helper;
+	
+	@Autowired
 	private BookRepository bookRepo;
 	
 	public List<BookVo> getAllBooks() {
 		List<BookEntity> books = bookRepo.findAll();
-		return books.stream().map(entity -> convertToVo(entity)).collect(Collectors.toList());
+		return books.stream().map(entity -> helper.convertToVo(entity)).collect(Collectors.toList());
 	}
 	
 	/**
@@ -28,18 +31,44 @@ public class BookService {
 	 * @return
 	 */
 	public BookVo getBookById(Long id) {
-		return bookRepo.findById(id).map(this::convertToVo).orElse(null);
+		return bookRepo.findById(id).map(helper::convertToVo).orElse(null);
 	}
 	
 	public void deleteById(Long id) {
 		bookRepo.deleteById(id);
 	}
 	
-	private BookVo convertToVo(BookEntity entity) {
-		BookVo vo = new BookVo();
-		vo.setId(entity.getId());
-		vo.setName(entity.getName());
-		vo.setAuthor(entity.getAuthor());
-		return vo;
+	public void addBook(BookVo book) {
+		BookEntity entity = helper.convertToVo(book);
+		bookRepo.save(entity);
+		try {
+			helper.saveImage(book.getFile());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	public void updateBook(BookVo book) {
+		
+		BookEntity entity = bookRepo.findById(book.getId()).orElse(null);
+		if (!book.getName().isBlank()) {
+			entity.setName(book.getName());
+		}
+		
+		if (!book.getAuthor().isBlank()) {
+			entity.setAuthor(book.getAuthor());
+		}
+		
+		if (!book.getBuyDate().isBlank()) {
+			entity.setBuyDate(helper.parseDate(book.getBuyDate()));
+		}
+		bookRepo.save(entity);
+//		try {
+//			helper.saveImage(book.getFile());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+	}
+	
+
 }

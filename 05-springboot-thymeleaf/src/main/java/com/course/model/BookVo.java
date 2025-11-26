@@ -15,5 +15,7 @@ public class BookVo {
 	
 	private String buyDate;
 	
+	private String imgName;
+	
 	private MultipartFile file;
 }

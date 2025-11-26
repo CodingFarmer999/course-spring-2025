@@ -24,4 +24,6 @@ public class BookEntity {
 	
 	private Date buyDate;
 	
+	private String imgName;
+	
 }

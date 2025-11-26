@@ -67,9 +67,18 @@ public class BookController {
 	}
 	
 	@PostMapping("/book")
-	public String addBook(@ModelAttribute("bookObj") BookVo book) {
+	public String addBook(@ModelAttribute BookVo book) {
 		// 新增書籍邏輯
 		System.out.println(book);
+		bookService.addBook(book);
+		return "redirect:/toBookcase";
+	}
+	
+	@PostMapping("/update")
+	public String updateBook(@ModelAttribute BookVo book) {
+		// 新增書籍邏輯
+		System.out.println(book);
+		bookService.updateBook(book);
 		return "redirect:/toBookcase";
 	}
 	
