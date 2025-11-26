@@ -1,5 +1,7 @@
 package com.course.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,5 +21,7 @@ public class BookEntity {
 	private String name;
 	
 	private String author;
+	
+	private Date buyDate;
 	
 }

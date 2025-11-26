@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>新增書籍</h1>
+
+
+<form th:action="@{/book}" th:object="${book}" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="title">書名:</label>
+        <input type="text" id="name" th:field="*{name}" />
+        <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        <label for="author">作者:</label>
+        <input type="text" id="author" th:field="*{author}"/>
+        <span class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+    </div>
+    
+    <div>
+        <label for="dueDate">購買日:</label>
+        <input type="date" id="buyDate" th:field="*{buyDate}"/>
+        <span class="error" th:if="${#fields.hasErrors('buyDate')}" th:errors="*{buyDate}"></span>
+    </div>
+        
+    <div>
+        <label for="file">上傳檔案:</label>
+        <input type="file" id="file" th:field="*{file}" />
+    </div>
+    
+    <div>
+        <button type="submit">新增</button>
+    </div>
+</form>
+</body>
+</html>

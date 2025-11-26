@@ -3,40 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <body>
-	<h1>我的書櫃</h1>
 
-<div class="container mt-4">
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>書名</th>
-                <th>作者</th>
-                <th>功能</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="book : ${books}">
-                <td th:text="${book.name}">迷霧之子</td>
-                <td th:text="${book.author}">布蘭登山德森</td>
-                <td>
-                    <a th:href="@{/edit/{id}(id=${book.id})}" 
-                       class="btn btn-primary btn-sm">
-                        編輯
-                    </a>
-                    <a th:href="@{/delete/{id}(id=${book.id})}" 
-                       class="btn btn-danger btn-sm">
-                        刪除
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
-<!-- 	<table border="1">
+	<div class="container mt-4">
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h3 class="m-0">書籍列表</h3>
+			<a th:href="@{/addBook}" class="btn btn-primary"> 新增書籍 </a>
+		</div>
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>書名</th>
+					<th>作者</th>
+					<th>功能</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${books}">
+					<td th:text="${book.name}">迷霧之子</td>
+					<td th:text="${book.author}">布蘭登山德森</td>
+					<td><a th:href="@{/edit/{id}(id=${book.id})}"
+						class="btn btn-primary btn-sm"> 編輯 </a> <a
+						th:href="@{/delete/{id}(id=${book.id})}"
+						class="btn btn-danger btn-sm"> 刪除 </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- 	<table border="1">
 		<thead>
 			<tr>
 				<td>書名</td>
