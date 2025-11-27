@@ -1,6 +1,7 @@
 package com.course.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,12 +63,27 @@ public class BookService {
 		if (!book.getBuyDate().isBlank()) {
 			entity.setBuyDate(helper.parseDate(book.getBuyDate()));
 		}
+		if (book.getFile() != null && !book.getFile().getOriginalFilename().isBlank()) {
+			entity.setImgName(book.getFile().getOriginalFilename());
+			try {
+				helper.saveImage(book.getFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		bookRepo.save(entity);
-//		try {
-//			helper.saveImage(book.getFile());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+	}
+
+	public List<BookVo> findByKeyword(String keyword) {
+		List<BookEntity> books;
+		if (keyword.isBlank()) {
+			books = bookRepo.findAll();
+		} else {
+			// books = bookRepo.findByNameContaining(keyword);
+			books = bookRepo.findByKeyword("%" + keyword + "%");
+		}
+		return books.stream().map(entity -> helper.convertToVo(entity)).collect(Collectors.toList());
 	}
 	
 

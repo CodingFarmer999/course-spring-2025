@@ -82,6 +82,15 @@ public class BookController {
 		return "redirect:/toBookcase";
 	}
 	
+	@GetMapping("/search")
+	public String search(@RequestParam String keyword, Model model) {
+		
+		List<BookVo> books = bookService.findByKeyword(keyword);
+		model.addAttribute("books", books);
+		
+		return "bookcase";
+	}
+	
 	private String parseDateToString(Date date) {
 		// 定義日期格式
        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
