@@ -1,11 +1,13 @@
 package com.course.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.course.entity.BookEntity;
@@ -84,6 +86,13 @@ public class BookService {
 			books = bookRepo.findByKeyword("%" + keyword + "%");
 		}
 		return books.stream().map(entity -> helper.convertToVo(entity)).collect(Collectors.toList());
+	}
+	
+	public Page<BookVo> findBookListPaging(Integer page, Integer size, String keyword) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    Page<BookEntity> bookPage = bookRepo.findByNameContaining(keyword, pageable);
+	    
+	    return bookPage.map(helper::convertToVo);
 	}
 	
 

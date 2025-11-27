@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,22 @@ public class BookController {
 		model.addAttribute("books", books);
 		
 		return "bookcase";
+	}
+	
+	@GetMapping("/books")
+	public String listBooks(
+	        @RequestParam(defaultValue = "0") Integer page,
+	        @RequestParam(defaultValue = "4") Integer size,
+	        @RequestParam(defaultValue = "") String keyword,
+	        Model model) {
+
+		Page<BookVo> bookPage = bookService.findBookListPaging(page, size, keyword);
+
+	    model.addAttribute("bookPage", bookPage);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("keyword", keyword);
+
+	    return "bookcase2";
 	}
 	
 	@GetMapping("/delete/{id}")
