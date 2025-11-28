@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.course.model.BookVo;
 import com.course.service.BookService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class BookController {
@@ -84,9 +87,15 @@ public class BookController {
 	}
 	
 	@PostMapping("/book")
-	public String addBook(@ModelAttribute BookVo book) {
+	public String addBook(@Valid @ModelAttribute("book") BookVo book, BindingResult bindingResult, Model model) {
+		
 		// 新增書籍邏輯
 		System.out.println(book);
+	    if (bindingResult.hasErrors()) {
+	    	model.addAttribute("book", book);
+	    	return "addBook";
+	    }
+	    
 		bookService.addBook(book);
 		return "redirect:/toBookcase";
 	}

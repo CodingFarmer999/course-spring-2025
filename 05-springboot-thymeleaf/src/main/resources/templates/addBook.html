@@ -18,7 +18,7 @@
                 <!-- 書名 -->
                 <div class="mb-3">
                     <label for="name" class="form-label">書名</label>
-                    <input type="text" id="name" class="form-control" th:field="*{name}">
+                    <input type="text" class="form-control" th:field="*{name}">
                     <div class="text-danger small" 
                          th:if="${#fields.hasErrors('name')}" 
                          th:errors="*{name}"></div>
@@ -27,7 +27,7 @@
                 <!-- 作者 -->
                 <div class="mb-3">
                     <label for="author" class="form-label">作者</label>
-                    <input type="text" id="author" class="form-control" th:field="*{author}">
+                    <input type="text" class="form-control" th:field="*{author}">
                     <div class="text-danger small" 
                          th:if="${#fields.hasErrors('author')}" 
                          th:errors="*{author}"></div>
@@ -36,7 +36,7 @@
                 <!-- 購買日 -->
                 <div class="mb-3">
                     <label for="buyDate" class="form-label">購買日</label>
-                    <input type="date" id="buyDate" class="form-control" th:field="*{buyDate}">
+                    <input type="date" class="form-control" th:field="*{buyDate}">
                     <div class="text-danger small" 
                          th:if="${#fields.hasErrors('buyDate')}" 
                          th:errors="*{buyDate}"></div>
@@ -45,7 +45,7 @@
                 <!-- 上傳檔案 -->
                 <div class="mb-3">
                     <label for="file" class="form-label">上傳檔案</label>
-                    <input type="file" id="file" class="form-control" th:field="*{file}">
+                    <input type="file" class="form-control" th:field="*{file}">
                 </div>
 
                 <!-- 送出按鈕 -->
