@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout/header::header}"></div>
+<div class="container mt-4">
+    <h1 class="mb-4">新增書籍</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form th:action="@{/book}" th:object="${book}" method="POST" enctype="multipart/form-data">
+
+                <!-- 書名 -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">書名</label>
+                    <input type="text" class="form-control" th:field="*{name}">
+                    <div class="text-danger small" 
+                         th:if="${#fields.hasErrors('name')}" 
+                         th:errors="*{name}"></div>
+                </div>
+
+                <!-- 作者 -->
+                <div class="mb-3">
+                    <label for="author" class="form-label">作者</label>
+                    <input type="text" class="form-control" th:field="*{author}">
+                    <div class="text-danger small" 
+                         th:if="${#fields.hasErrors('author')}" 
+                         th:errors="*{author}"></div>
+                </div>
+
+                <!-- 購買日 -->
+                <div class="mb-3">
+                    <label for="buyDate" class="form-label">購買日</label>
+                    <input type="date" class="form-control" th:field="*{buyDate}">
+                    <div class="text-danger small" 
+                         th:if="${#fields.hasErrors('buyDate')}" 
+                         th:errors="*{buyDate}"></div>
+                </div>
+
+                <!-- 上傳檔案 -->
+                <div class="mb-3">
+                    <label for="file" class="form-label">上傳檔案</label>
+                    <input type="file" class="form-control" th:field="*{file}">
+                </div>
+
+                <!-- 送出按鈕 -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">新增</button>
+                    <a th:href="@{/toBookcase}" class="btn btn-secondary">取消</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
