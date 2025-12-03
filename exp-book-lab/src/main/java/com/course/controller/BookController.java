@@ -27,9 +27,7 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping("/")
-	public String home(Model model) {
-		model.addAttribute("title", "<span style=\"color:DodgerBlue;\">去唱卡拉ＯＫ吧</span>");
-
+	public String home() {
 		return "index";
 	}
 	
