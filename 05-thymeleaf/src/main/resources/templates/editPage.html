@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>編輯頁</h1>
+
+<form th:action="@{/edit}" th:object="${user}" method="POST">
+	名稱：<input th:field="*{username}"/><br>
+	E-Mail：<input th:field="*{email}"/><br>
+	<button type="submit">確定</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1 th:text="${title}">App Test</h1>
+
+<h1 th:text="${titleWithScript}">App Test</h1>
+
+<div th:if="${isLogin}" th:text="|${text1} 半邊天${text2}|">字串模板</div>
+
+<table border="1">
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>姓名</td>
+			<td>E-mail</td>
+			<td>操作</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="user : ${users}">
+			<td th:text="${user.id}">ID</td>
+			<td th:text="${user.username}">姓名</td>
+			<td th:text="${user.email}">E-mail</td>
+			<td><a th:href="@{/edit/{id} (id=${user.id})}">編輯</a></td>
+		</tr>
+	</tbody>
+</table>
+
+<div th:switch="${username}">
+	<p th:case="kitty">凱蒂貓</p>
+	<p th:case="snoopy">史奴比</p>
+	<p th:case="*">海綿寶寶</p>
+</div>
+
+</body>
+</html>
