@@ -54,4 +54,17 @@ public class AppController {
 		System.out.println("User: " + user);
 		return "app";
 	}
+	
+	@GetMapping("/book/{id}")
+	public String hrefPathVariable(@PathVariable Integer id) {
+		System.out.println("ID: " + id);
+		return "app";
+	}
+	
+	@GetMapping("/books")
+	public String hrefRequestParam(Integer page, String keyword) {
+		System.out.println("Page: " + page);
+		System.out.println("Keyword: " + keyword);
+		return "app";
+	}
 }
