@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX API Call Example</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <button id="apiButton">呼叫 API</button>
+</body>
+</html>
+<script>
+    $('#apiButton').on('click', function() {
+        $.ajax({
+            // url: 'http://localhost:8080/user',
+            url: 'http://localhost:8080/user/wrap',
+            method: 'GET',
+            success: function(data) {
+                console.log('Success:', data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    });
+</script>

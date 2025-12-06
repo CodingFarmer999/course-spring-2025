@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,12 +14,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course.model.ApiResponse;
 import com.course.model.User;
 import com.course.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
+@CrossOrigin("*")
 public class RestfulController {
 	
 	@Autowired
@@ -52,8 +57,8 @@ public class RestfulController {
 	}
 	
 	@Operation(summary = "新增使用者，使用 RequestParam", description = "新增使用者", tags = "使用者")
-	@PostMapping("/user2")
-	public User addUser2(User user) {
+	@PostMapping("/user/requestparam")
+	public User addUserRequestParam(User user) {
 		return user;
 	}
 	
@@ -67,5 +72,21 @@ public class RestfulController {
 	@DeleteMapping("/user")
 	public User deleteUser(@RequestBody User user) {
 		return user;
+	}
+	
+	@Operation(summary = "取得使用者-回傳ResponseEntity", description = "取得使用者詳細資料", tags = "使用者")
+	@GetMapping("/user/responseEntity")
+	public ResponseEntity<List<User>> getUsersResponseEntity() {
+		List<User> users = userService.queryAllUsers();
+		// return ResponseEntity.ok(users);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(users);
+	}
+	
+	@Operation(summary = "取得使用者-自定義 ApiResponse", description = "取得使用者詳細資料", tags = "使用者")
+	@GetMapping("/user/wrap")
+	public ApiResponse<List<User>> getUsersWrapWithApiResponse() {
+		List<User> users = userService.queryAllUsers();
+		// return ApiResponse.success(users);
+		return ApiResponse.error("401", "我也不知道發生什麼錯", users);
 	}
 }
