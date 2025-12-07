@@ -21,7 +21,7 @@ import com.course.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class RestfulController {
 	
 	@Autowired
