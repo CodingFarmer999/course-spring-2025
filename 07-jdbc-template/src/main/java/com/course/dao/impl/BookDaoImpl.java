@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.course.dao.BookDao;
 import com.course.model.Book;
+import com.course.model.BookDto;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -49,13 +50,39 @@ public class BookDaoImpl implements BookDao {
 	public void update(Book book) {
 		String sql = "UPDATE BOOK SET NAME = ?, AUTHOR = ? , BUY_DATE = ? , IMG_NAME= ? WHERE ID = ?";
 		jdbcTemplate.update(sql, book.getName(), book.getAuthor(), book.getBuyDate(), book.getImgName(), book.getId());
-		
 	}
 
 	@Override
 	public void delete(Long id) {
 		String sql = "DELETE FROM BOOK WHERE ID = ?";
 		jdbcTemplate.update(sql, id);
+	}
+	
+	@Override
+	public List<BookDto> findBookByStore(String code) {
+		String sql = """
+			SELECT
+			S.NAME STORENAME,
+			B.NAME BOOKNAME,
+			T.QUANTITY
+			FROM STORE S
+			JOIN INVENTORY T ON T.STORE_ID = S.ID
+			JOIN BOOK B ON B.ID = T.BOOK_ID
+			WHERE S.CODE = ?
+				""";
+		
+		RowMapper<BookDto> rowMapper = new RowMapper<>() {
+			@Override
+			public BookDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+				BookDto dto = new BookDto();
+				dto.setStoreName(rs.getString("STORENAME"));
+				dto.setBookName(rs.getString("BOOKNAME"));
+				dto.setQuantity(rs.getInt("QUANTITY"));
+				return dto;
+			}
+		};
+		
+		return jdbcTemplate.query(sql, rowMapper, code);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.course.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.course.dao.BookDao;
 import com.course.model.Book;
+import com.course.model.BookDto;
 
 @RestController
 public class BookController {
@@ -37,5 +40,10 @@ public class BookController {
 	@DeleteMapping("/book/{id}")
 	public void delete(@PathVariable Long id) {
 		bookDao.delete(id);
+	}
+	
+	@GetMapping("/inventory/store/{code}")
+	public List<BookDto> findInventoryByStore(@PathVariable String code) {
+		return bookDao.findBookByStore(code);
 	}
 }
