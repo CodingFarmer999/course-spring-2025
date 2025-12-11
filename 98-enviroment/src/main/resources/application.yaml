@@ -1,0 +1,7 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+app:
+  message: "Welcome to the Spring Boot Application!"
