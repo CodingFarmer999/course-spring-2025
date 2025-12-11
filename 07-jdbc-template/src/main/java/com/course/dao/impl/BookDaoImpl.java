@@ -3,8 +3,10 @@ package com.course.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.course.dao.BookDao;
 import com.course.model.Book;
 import com.course.model.BookDto;
+import com.course.model.BookRowMapper;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -20,24 +23,52 @@ public class BookDaoImpl implements BookDao {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Override
+	public List<Book> findAll() {
+		String sql = "SELECT * FROM BOOK B";
+		
+//		RowMapper<Book> rowMapper = new RowMapper<>() {
+//			@Override
+//			public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				Book book = new Book();
+//				book.setId(rs.getLong("ID"));
+//				book.setName(rs.getString("NAME"));
+//				book.setAuthor(rs.getString("AUTHOR"));
+//				book.setBuyDate(rs.getDate("BUY_DATE"));
+//				book.setImgName(rs.getString("IMG_NAME"));
+//				return book;
+//			}
+//		};
+		
+		// 使用 Lambda
+		RowMapper<Book> rowMapper = (rs, rowNum) -> {
+			Book book = new Book();
+			book.setId(rs.getLong("ID"));
+			book.setName(rs.getString("NAME"));
+			book.setAuthor(rs.getString("AUTHOR"));
+			book.setBuyDate(rs.getDate("BUY_DATE"));
+			book.setImgName(rs.getString("IMG_NAME"));
+			return book;
+		};
+		
+		List<Book> books = jdbcTemplate.query(sql, rowMapper);
+		return books;
+	}
+
+	@Override
 	public Book findById(Long id) {
 		String sql = "SELECT * FROM BOOK B WHERE B.ID = ?";
 		
-		RowMapper<Book> rowMapper = new RowMapper<>() {
-			@Override
-			public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Book book = new Book();
-				book.setId(rs.getLong("ID"));
-				book.setName(rs.getString("NAME"));
-				book.setAuthor(rs.getString("AUTHOR"));
-				book.setBuyDate(rs.getDate("BUY_DATE"));
-				book.setImgName(rs.getString("IMG_NAME"));
-				return book;
-			}
-		};
-		List<Book> books = jdbcTemplate.query(sql, rowMapper, id);
+//		List<Book> books = jdbcTemplate.query(sql, new BookRowMapper(), id);
+//		return books != null && books.size() > 0 ? books.get(0) : null;
 		
-		return books != null && books.size() > 0 ? books.get(0) : null;
+		Book book = null;
+		try {
+			book = jdbcTemplate.queryForObject(sql, new BookRowMapper(), id);
+		} catch (EmptyResultDataAccessException e) {
+			// 查無資料，必須要 Handle EmptyResultDataAccessException，不然會拋出例外
+		}
+		return book;
+		
 	}
 
 	@Override
@@ -83,6 +114,15 @@ public class BookDaoImpl implements BookDao {
 		};
 		
 		return jdbcTemplate.query(sql, rowMapper, code);
+	}
+
+	@Override
+	public List<Book> queryForList() {
+		String sql = "SELECT ID, NAME FROM BOOK";
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+		String name = (String) rows.get(0).get("NAME");
+
+		return null;
 	}
 
 }

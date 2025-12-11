@@ -7,6 +7,8 @@ import com.course.model.BookDto;
 
 public interface BookDao {
 
+	List<Book> findAll();
+	
 	Book findById(Long id);
 	
 	void insert(Book book);
@@ -16,4 +18,6 @@ public interface BookDao {
 	void delete(Long id);
 
 	List<BookDto> findBookByStore(String code);
+
+	List<Book> queryForList();
 }
