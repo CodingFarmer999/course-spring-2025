@@ -18,6 +18,8 @@ public class BookDto {
 	private String imgName;
 	
 	// TABLE: STORE 欄位
+	private Long storeId;
+	
 	private String storeName;
 	
 	// TABLE: INVENTORY 欄位

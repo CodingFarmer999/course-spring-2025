@@ -14,4 +14,8 @@ public class BookVo {
 	private String buyDate;
 	
 	private String imgName;
+	
+	private Long storeId;
+	
+	private Integer quantity;
 }

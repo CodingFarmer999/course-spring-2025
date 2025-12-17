@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -22,6 +23,7 @@ public interface BookMapper {
 	@Select("SELECT * FROM BOOK WHERE NAME LIKE #{name}")
 	List<BookDto> findByName(String name);
 	
+	@Options(useGeneratedKeys = true, keyProperty = "ID")
 	@Insert("INSERT INTO BOOK (AUTHOR, NAME, BUY_DATE, IMG_NAME) VALUES (#{author}, #{name}, #{buyDate}, #{imgName})")
 	Integer insert(BookDto book);
 	
@@ -30,4 +32,11 @@ public interface BookMapper {
 	
 	@Delete("DELETE FROM BOOK WHERE ID = #{id}")
 	Integer deleteById(Long id);
+	
+	@Insert("INSERT INTO INVENTORY (STORE_ID, BOOK_ID, QUANTITY) VALUES (#{storeId}, #{id}, #{quantity})")
+	Integer insertInventory(BookDto book);
+	
+	
+	
+	
 }

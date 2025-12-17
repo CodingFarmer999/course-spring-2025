@@ -44,4 +44,9 @@ public class BookController {
 	public void deleteBookById(Long id) {
 		bookService.deleteBook(id);
 	}
+	
+	@PostMapping("/bookData")
+	public void addBookData(BookVo vo) {
+		bookService.insertAllData(vo);
+	}
 }

@@ -50,13 +50,22 @@ public class BookService {
 		Integer deleteCnt = bookMapper.deleteById(id);
 		logger.info("deleteCnt: {}", deleteCnt);
 	}
+	
+	public void insertAllData(BookVo vo) {
+		BookDto dto = convertToDto(vo);
+		bookMapper.insert(dto);
+		bookMapper.insertInventory(dto);
+	}
 
 	private BookDto convertToDto(BookVo vo) {
 		BookDto dto = new BookDto();
+		dto.setId(vo.getId());
 		dto.setAuthor(vo.getAuthor());
 		dto.setName(vo.getName());
 		dto.setBuyDate(parseDate(vo.getBuyDate()));
 		dto.setImgName(vo.getImgName());
+		dto.setStoreId(vo.getStoreId());
+		dto.setQuantity(vo.getQuantity());
 		return dto;
 	}
 	
