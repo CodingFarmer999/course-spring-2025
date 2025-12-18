@@ -56,6 +56,11 @@ public class BookService {
 		bookMapper.insert(dto);
 		bookMapper.insertInventory(dto);
 	}
+	
+	public BookVo findById(Long id) {
+		BookDto dto = bookMapper.findBookById(id);
+		return convertToVo(dto);
+	}
 
 	private BookDto convertToDto(BookVo vo) {
 		BookDto dto = new BookDto();
@@ -67,6 +72,18 @@ public class BookService {
 		dto.setStoreId(vo.getStoreId());
 		dto.setQuantity(vo.getQuantity());
 		return dto;
+	}
+	
+	private BookVo convertToVo(BookDto dto) {
+		BookVo vo = new BookVo();
+		vo.setId(dto.getId());
+		vo.setAuthor(dto.getAuthor());
+		vo.setName(dto.getName());
+		vo.setBuyDate(parseDateToString(dto.getBuyDate()));
+		vo.setImgName(dto.getImgName());
+		vo.setStoreId(dto.getStoreId());
+		vo.setQuantity(dto.getQuantity());
+		return vo;
 	}
 	
 	/**
@@ -82,5 +99,12 @@ public class BookService {
             e.printStackTrace();
         }
         return null;
+	}
+	
+	public String parseDateToString(Date date) {
+	    // 定義日期格式
+	   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	   // 將 Date 物件轉換為 String
+	   return formatter.format(date);
 	}
 }

@@ -49,4 +49,9 @@ public class BookController {
 	public void addBookData(BookVo vo) {
 		bookService.insertAllData(vo);
 	}
+	
+	@GetMapping("/book/id/{id}")
+	public BookVo findById(@PathVariable Long id) {
+		return bookService.findById(id);	
+	}
 }

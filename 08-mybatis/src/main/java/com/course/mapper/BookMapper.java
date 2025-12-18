@@ -23,7 +23,7 @@ public interface BookMapper {
 	@Select("SELECT * FROM BOOK WHERE NAME LIKE #{name}")
 	List<BookDto> findByName(String name);
 	
-	@Options(useGeneratedKeys = true, keyProperty = "ID")
+	@Options(useGeneratedKeys = true, keyProperty = "id")
 	@Insert("INSERT INTO BOOK (AUTHOR, NAME, BUY_DATE, IMG_NAME) VALUES (#{author}, #{name}, #{buyDate}, #{imgName})")
 	Integer insert(BookDto book);
 	
@@ -36,7 +36,7 @@ public interface BookMapper {
 	@Insert("INSERT INTO INVENTORY (STORE_ID, BOOK_ID, QUANTITY) VALUES (#{storeId}, #{id}, #{quantity})")
 	Integer insertInventory(BookDto book);
 	
-	
+	BookDto findBookById(Long id);
 	
 	
 }
