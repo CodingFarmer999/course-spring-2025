@@ -23,8 +23,8 @@ public class BookService {
 	private BookMapper bookMapper;
 	
 	public List<BookDto> getAll() {
-		// return bookMapper.findAll();
-		return bookMapper.findAllData();
+		 return bookMapper.findAll2();
+//		return bookMapper.findAllData();
 	}
 	
 	public List<BookDto> searchByName(String name) {

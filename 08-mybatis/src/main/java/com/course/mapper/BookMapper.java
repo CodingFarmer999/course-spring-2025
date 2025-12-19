@@ -38,5 +38,7 @@ public interface BookMapper {
 	
 	BookDto findBookById(Long id);
 	
+	List<BookDto> findAll2();
+	
 	
 }
