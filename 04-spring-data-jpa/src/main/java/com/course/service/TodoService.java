@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.course.entity.TodoEntity;
+import com.course.model.TodoVo;
 import com.course.repository.TodoRepository;
 
 @Service
@@ -79,5 +80,9 @@ public class TodoService {
 		return date;
 	}
 	
+	public List<TodoEntity> findByQuery(TodoVo todoVo) {
+		// return todoRepo.findByQuery();
+		return todoRepo.findByQuery2(todoVo.getStatus());
+	}
 	
 }
