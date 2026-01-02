@@ -50,4 +50,25 @@ public class TodoController {
 		return todos;
 	}
 	
+	@PostMapping("/todo/query-stats-and-duedate")
+	public List<TodoEntity> findByStatusAndDuedate(@RequestBody TodoVo todoVo) {
+		List<TodoEntity> todos = todoService.findByStatusAndDuedate(todoVo);
+		return todos;
+	}
+	
+	@PostMapping("/todo/insert-by-query")
+	public void insertByQuery(@RequestBody TodoVo todoVo) {
+		todoService.insertTodoByQuery(todoVo);
+	}
+	
+	@PostMapping("/todo/update-by-query")
+	public void updateByQuery(@RequestBody TodoVo todoVo) {
+		todoService.updateTodoByQuery(todoVo);
+	}
+	
+	@PostMapping("/todo/delete-by-status")
+	public void updateByQuery(Integer status) {
+		todoService.deleteTodo(status);
+	}
+	
 }

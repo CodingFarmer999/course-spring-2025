@@ -85,4 +85,22 @@ public class TodoService {
 		return todoRepo.findByQuery2(todoVo.getStatus());
 	}
 	
+	public List<TodoEntity> findByStatusAndDuedate(TodoVo todoVo) {
+		Date startDate = genQueryDate(todoVo.getDuedate(), false);
+		Date endDate = genQueryDate(todoVo.getDuedate(), true);
+		return todoRepo.findByStatusAndDuedate(todoVo.getStatus(), startDate, endDate);
+	}
+	
+	public void insertTodoByQuery(TodoVo todoVo) {
+		todoRepo.insertTodo(todoVo.getTitle(), todoVo.getStatus(), genQueryDate(todoVo.getDuedate(), false));
+	}
+	
+	public void updateTodoByQuery(TodoVo todoVo) {
+		todoRepo.updateTodo(todoVo.getId(), todoVo.getTitle());
+	}
+	
+	public void deleteTodo(Integer status) {
+		todoRepo.deleteByStatus(status);
+	}
+	
 }

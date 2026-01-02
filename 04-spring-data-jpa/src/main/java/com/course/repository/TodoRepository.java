@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.course.entity.TodoEntity;
 
@@ -60,8 +63,24 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
 	
 	// JPQL
 	// @Query("SELECT t FROM TodoEntity t WHERE t.status = ?1")
-	
+	// NativeSQL
 	@Query(nativeQuery = true, value = "SELECT * FROM TODO T WHERE T.STATUS = ?1")
-	List<TodoEntity> findByQuery2(Integer status);
+	List<TodoEntity> findByQuery2(@Param("status") Integer status);
 	
+	@Query(nativeQuery = true, value = "SELECT * FROM TODO T WHERE T.STATUS = ?1 AND T.duedate BETWEEN ?2 AND ?3")
+	List<TodoEntity> findByStatusAndDuedate(Integer status, Date startDate, Date endDate);
+	
+	@Transactional
+	@Modifying()
+	// @Query("INSERT INTO TodoEntity (title, duedate, status) VALUES (:title, :duedate, :status)")
+	@Query(nativeQuery = true, value= "INSERT INTO Todo (title, duedate, status) VALUES (:title, :duedate, :status)")
+	void insertTodo(String title, Integer status, Date duedate);
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE TodoEntity set title = ?2 where id = ?1")
+	Integer updateTodo(Integer id, String title);
+	
+	@Transactional
+	void deleteByStatus(Integer status);
 }
