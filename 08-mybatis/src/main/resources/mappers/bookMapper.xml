@@ -10,4 +10,30 @@
 		SELECT * FROM BOOK
 	</select>
 	
+	<resultMap type="com.course.model.BookDto" id="bookMap">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="author" column="IMG_NAME"/>
+		<result property="buyDate" column="BUY_DATE"/>
+		<collection property="stores" ofType="com.course.model.StoreDto">
+			<id property="id" column="STOREID" />
+			<result property="code" column="STORECODE" />
+			<result property="name" column="STORENAME" />
+		</collection>
+	</resultMap>
+	
+	<select id="findAllInvetory" resultMap="bookMap">
+		SELECT 
+		B.ID,
+		B.NAME,
+		B.BUY_DATE,
+		B.IMG_NAME,
+		S.ID STOREID,
+		S.CODE STORECODE,
+		S.NAME STORENAME
+		FROM BOOK B
+		JOIN INVENTORY I ON I.BOOK_ID = B.ID
+		JOIN STORE S ON S.ID = I.STORE_ID
+	</select>
+	
 </mapper>

@@ -40,5 +40,7 @@ public interface BookMapper {
 	
 	List<BookDto> findAll2();
 	
+	List<BookDto> findAllInvetory();
+	
 	
 }

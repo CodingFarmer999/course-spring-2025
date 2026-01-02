@@ -54,4 +54,9 @@ public class BookController {
 	public BookVo findById(@PathVariable Long id) {
 		return bookService.findById(id);	
 	}
+	
+	@GetMapping("/inventory")
+	public List<BookDto> findAllInventory() {
+		return bookService.findAllInventory();
+	}
 }

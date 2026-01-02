@@ -57,6 +57,10 @@ public class BookService {
 		bookMapper.insertInventory(dto);
 	}
 	
+	public List<BookDto> findAllInventory() {
+		return bookMapper.findAllInvetory();
+	}
+	
 	public BookVo findById(Long id) {
 		BookDto dto = bookMapper.findBookById(id);
 		return convertToVo(dto);
