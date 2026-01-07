@@ -3,7 +3,6 @@ package com.course.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,27 +67,6 @@ public class GameController {
 	@GetMapping("/admin/history")
 	public String historyPage() {
 		return "history";
-	}
-	
-	/** 測試在 Controller 取得驗證資料 */
-//	@GetMapping("/info")
-//	public String getInfo(@AuthenticationPrincipal GameUserPrincipal principal) {
-//		System.out.println("Username: " + principal.getUsersEntity().getUsername());
-//		System.out.println("Role: " + principal.getUsersEntity().getRole());
-//		return "game";
-//	}
-	
-	@GetMapping("/info")
-	public String getInfo(Authentication authentication) {
-		System.out.println("Username: " + authentication.getName());
-		System.out.println("Role: " + authentication.getAuthorities());
-		return "game";
-	}
-	
-	@GetMapping("/testPreAuthorize")
-	public String testPreAuthorize() {
-		gameService.testPreAuthorize();
-		return "game";
 	}
 	
 }

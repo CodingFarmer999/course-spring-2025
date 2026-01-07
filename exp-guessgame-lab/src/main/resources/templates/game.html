@@ -2,33 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>1A2B 遊戲</title>
+
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>1A2B 遊戲頁</h1>
 
-<form th:action="@{/newGame}" method="GET">
-	<button type="submit">新遊戲</button>
-</form>
+<body class="bg-light">
 
-<form th:action="@{guess}" method="GET">
-	<input type="hidden" name="gameId" th:value="${gameId}">
-	猜數字：<input type="text" name="guessNum" />
-	<button type="submit">猜答案</button>
-</form>
+<div class="container mt-5" style="max-width: 600px;">
 
-<ul>
-	<li th:each="history : ${gameHistory}" th:text="|${history.guessNum} ${history.resultDisplay}|">1234 1A2B</li>
-</ul>
+	<h1 class="text-center mb-4">🎯 1A2B 遊戲</h1>
 
-<a th:href="@{/info}">測試 @AuthenticationPrincipal</a>
+	<div class="card shadow-sm mb-4">
+		<div class="card-body">
 
-<a th:href="testPreAuthorize">測試 @testPreAuthorize</a>
+			<!-- 新遊戲 -->
+			<form th:action="@{/newGame}" method="GET" class="d-grid mb-3">
+				<button type="submit" class="btn btn-primary">
+					開始新遊戲
+				</button>
+			</form>
 
-<a th:href="@{/admin/history}">查看遊戲歷程</a>
+			<!-- 猜數字 -->
+			<form th:action="@{/guess}" method="GET" class="mb-3">
+				<input type="hidden" name="gameId" th:value="${gameId}">
 
-<form th:action="@{/logout}" method="POST">
-	<button type="submit">登出</button>
-</form>
+				<div class="input-group">
+					<input type="text"
+						   name="guessNum"
+						   class="form-control"
+						   placeholder="請輸入 4 位不重複數字">
+					<button type="submit" class="btn btn-success">
+						猜！
+					</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	<!-- 遊戲歷程 -->
+	<div class="card shadow-sm mb-4">
+		<div class="card-header fw-bold">
+			📜 猜測紀錄
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item"
+				th:each="history : ${gameHistory}"
+				th:text="|${history.guessNum} → ${history.resultDisplay}|">
+				1234 → 1A2B
+			</li>
+			<li class="list-group-item text-muted"
+				th:if="${#lists.isEmpty(gameHistory)}">
+				尚無紀錄
+			</li>
+		</ul>
+	</div>
+
+	<!-- 登出 -->
+	<form th:action="@{/logout}" method="POST" class="d-grid">
+		<button type="submit" class="btn btn-outline-danger">
+			登出
+		</button>
+	</form>
+
+</div>
+
 </body>
 </html>
