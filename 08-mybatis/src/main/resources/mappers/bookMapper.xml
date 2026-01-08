@@ -36,4 +36,31 @@
 		JOIN STORE S ON S.ID = I.STORE_ID
 	</select>
 	
+	<insert id="insertBookByXml" parameterType="bookDto"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO BOOK (
+			AUTHOR, 
+			NAME, 
+			BUY_DATE, 
+			IMG_NAME
+		) VALUES (
+			#{author}, 
+			#{name}, 
+			#{buyDate}, 
+			#{imgName}
+		)
+	</insert>
+	
+	<insert id="insertInventoryByXml" parameterType="BOOKDTO">
+		INSERT INTO INVENTORY (STORE_ID, BOOK_ID, QUANTITY) VALUES (#{storeId}, #{id}, #{quantity})
+	</insert>
+	
+	<delete id="deleteBookByXml" parameterType="long">
+		DELETE FROM BOOK WHERE ID = #{id}
+	</delete>
+	
+	<update id="updateBookName">
+		UPDATE BOOK SET NAME = #{name} WHERE ID = #{id}
+	</update>
+	
 </mapper>

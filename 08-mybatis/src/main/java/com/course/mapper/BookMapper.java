@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.course.model.BookDto;
+import com.course.model.StoreDto;
 
 @Mapper
 public interface BookMapper {
@@ -41,6 +42,14 @@ public interface BookMapper {
 	List<BookDto> findAll2();
 	
 	List<BookDto> findAllInvetory();
+	
+	Integer insertBookByXml(BookDto book);
+	
+	Integer insertInventoryByXml(BookDto book);
+	
+	Integer updateBookName(Long id, String name);
+	
+	Integer deleteBookByXml(Long id);
 	
 	
 }

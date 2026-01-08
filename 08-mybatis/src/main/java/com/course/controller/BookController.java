@@ -59,4 +59,9 @@ public class BookController {
 	public List<BookDto> findAllInventory() {
 		return bookService.findAllInventory();
 	}
+	
+	@PatchMapping("/book/name")
+	public void updateBookName(BookVo vo) {
+		bookService.updateBookName(vo);
+	}
 }

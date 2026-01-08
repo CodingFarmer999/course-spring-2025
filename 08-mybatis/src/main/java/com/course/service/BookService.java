@@ -47,14 +47,18 @@ public class BookService {
 	}
 	
 	public void deleteBook(Long id) {
-		Integer deleteCnt = bookMapper.deleteById(id);
+		// Integer deleteCnt = bookMapper.deleteById(id);
+		Integer deleteCnt = bookMapper.deleteBookByXml(id);
 		logger.info("deleteCnt: {}", deleteCnt);
 	}
 	
 	public void insertAllData(BookVo vo) {
 		BookDto dto = convertToDto(vo);
-		bookMapper.insert(dto);
-		bookMapper.insertInventory(dto);
+		// bookMapper.insert(dto);
+		// bookMapper.insertInventory(dto);
+		
+		bookMapper.insertBookByXml(dto);
+		bookMapper.insertInventoryByXml(dto);
 	}
 	
 	public List<BookDto> findAllInventory() {
@@ -64,6 +68,15 @@ public class BookService {
 	public BookVo findById(Long id) {
 		BookDto dto = bookMapper.findBookById(id);
 		return convertToVo(dto);
+	}
+	
+	public void updateBookName(BookVo vo) {
+		BookDto dto = new BookDto();
+		dto.setId(vo.getId());
+		dto.setName(vo.getName());
+		Integer updateCnt = bookMapper.updateBookName(dto.getId(), dto.getName());
+		
+		logger.info("updateCnt: {}", updateCnt);
 	}
 
 	private BookDto convertToDto(BookVo vo) {
