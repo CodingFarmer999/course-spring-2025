@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.course.model.BookVo;
 import com.course.service.BookService;
+import com.course.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -24,7 +25,15 @@ import jakarta.validation.Valid;
 public class BookController {
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private BookService bookService;
+	
+	@ModelAttribute("username")
+	public String getUsername() {
+		return userService.getUsernameFromSession();
+	}
 	
 	@GetMapping("/")
 	public String home() {
@@ -34,7 +43,14 @@ public class BookController {
 	@PostMapping("/login")
 	public String login(@RequestParam String username, @RequestParam String password) {
 		// TODO: 登入行為
+		userService.login(username, password);
 		return "loginSuccess";
+	}
+	
+	@GetMapping("/logout")
+	public String logout() {
+		userService.logout();
+		return "logoutSuccess";
 	}
 	
 	@GetMapping("/toBookcase")
